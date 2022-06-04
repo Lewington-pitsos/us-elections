@@ -7,7 +7,7 @@
  * 
  */
 
-import { WebGLRenderer, PerspectiveCamera, Scene, Vector3 } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Scene } from 'three';
 import SeedScene from './objects/Scene.js';
 import OrbitControls from 'three-orbitcontrols';
 
@@ -21,8 +21,12 @@ const controls = new OrbitControls(camera, renderer.domElement);
 scene.add(seedScene);
 
 // camera
-camera.position.set(0,0,50);
-camera.lookAt(new Vector3(0,0,0));
+camera.position.set(60,40,100);
+controls.target.set(0, 40, 0);
+controls.enablePan = false;
+controls.maxDistance = 100;
+controls.minDistance = 20;
+controls.update();
 
 // renderer
 renderer.setPixelRatio(window.devicePixelRatio);

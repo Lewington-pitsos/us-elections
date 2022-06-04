@@ -1,21 +1,20 @@
 import { Group, Mesh, BufferGeometry, Vector3 } from 'three';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
-import Election from './Election/Election.js'
+import { Election, Year } from './Election/Election.js'
 import Parties from '../us-parties.json'
 import ElectionData from '../us-elections.json'
-
 
 function connectingLine(e1, e2) {
   const points = [
     new Vector3(
-      e1.position.x * 2, 
-      e1.position.y * 2, 
-      e1.position.z * 2,
+      e1.pos.x, 
+      e1.pos.y, 
+      e1.pos.z,
     ), 
     new Vector3(
-      e2.position.x * 2, 
-      e2.position.y * 2, 
-      e2.position.z * 2, 
+      e2.pos.x, 
+      e2.pos.y, 
+      e2.pos.z, 
     )
   ];
   const line = new MeshLine();
@@ -28,26 +27,22 @@ function connectingLine(e1, e2) {
   return new Mesh(line, lineMaterial);
 }
 
-const PartyLocations = new Map([
-])
+const PartyLocations = new Map()
 
 class Seat {
-  ELECTION_DISTANCE = 5
   name;
-  elections = 0;
   currentElection = null;
 
   constructor(name) {
     this.name = name;
   }
 
-  newElection(winner) {
-    const xjitter = (Math.random() - 0.5) * 4
-    const zjitter = (Math.random() - 0.5) * 4
+  newElection(year, winner) {
+    const xjitter = (Math.random() - 0.5) * 6
+    const zjitter = (Math.random() - 0.5) * 6
     const [x, z] = PartyLocations.get(winner.Name);
-    const e = new Election(x + xjitter, this.elections * this.ELECTION_DISTANCE, z + zjitter, winner.Color);
+    const e = new Election(x + xjitter, year, z + zjitter, winner.Color);
     
-    this.elections += 1;
     this.currentElection = e;
     return e;
   }
@@ -76,6 +71,8 @@ export default class SeedScene extends Group {
 
     var firstYear = false;
     for(const year in ElectionData) {
+
+
       const states = ElectionData[year];
       for (const state in states) {
 
@@ -97,61 +94,23 @@ export default class SeedScene extends Group {
           allStates.set(state, new Seat(state));
         }
 
-        this.addElection(allStates.get(state), Parties[winner]);
+        this.addElection(year, allStates.get(state), Parties[winner]);
       }
 
+      this.addYear(year);
 
       firstYear = false;
     }
-
-
-    // const hawthorn = new Seat("hawthorn")
-    // const bayswater = new Seat("bayswater")
-    // const auburn = new Seat("auburn")
-    // const frankston = new Seat("frankston")
-
-    // this.addElection(hawthorn, Parties.ALP);
-    // this.addElection(hawthorn, Parties.ALP);
-    // this.addElection(hawthorn, Parties.ALP);
-    // this.addElection(hawthorn, Parties.LNP);
-    // this.addElection(hawthorn, Parties.ALP);
-    // this.addElection(hawthorn, Parties.GRN);
-
-    // this.addElection(bayswater, Parties.NP);
-    // this.addElection(bayswater, Parties.NP);
-    // this.addElection(bayswater, Parties.NP);
-    // this.addElection(bayswater, Parties.NP);
-    // this.addElection(bayswater, Parties.GRN);
-    // this.addElection(bayswater, Parties.ALP);
-    // this.addElection(bayswater, Parties.ALP);
-    // this.addElection(bayswater, Parties.ALP);
-    // this.addElection(bayswater, Parties.ALP);
-
-    // this.addElection(auburn, Parties.GRN)
-    // this.addElection(auburn, Parties.GRN)
-    // this.addElection(auburn, Parties.GRN)
-    // this.addElection(auburn, Parties.ALP)
-    // this.addElection(auburn, Parties.GRN)
-    // this.addElection(auburn, Parties.GRN)
-    // this.addElection(auburn, Parties.ALP)
-    // this.addElection(auburn, Parties.ALP)
-    // this.addElection(auburn, Parties.GRN)
-
-    // this.addElection(frankston, Parties.ACL)
-    // this.addElection(frankston, Parties.ACL)
-    // this.addElection(frankston, Parties.ALP)
-    // this.addElection(frankston, Parties.ALP)
-    // this.addElection(frankston, Parties.ALP)
-    // this.addElection(frankston, Parties.LNP)
-    // this.addElection(frankston, Parties.LNP)
-    // this.addElection(frankston, Parties.LNP)
-    // this.addElection(frankston, Parties.LNP)
-    // this.addElection(frankston, Parties.LNP)
+  }
+  
+  addYear(year) {
+    const yearText = new Year(year);
+    this.add(yearText);
   }
 
-  addElection(seat, nextWinner) {
+  addElection(year, seat, nextWinner) {
     const previousElection = seat.currentElection;
-    const nextElection = seat.newElection(nextWinner);
+    const nextElection = seat.newElection(year, nextWinner);
     this.add(nextElection)
 
     if (previousElection != null) {
@@ -159,7 +118,6 @@ export default class SeedScene extends Group {
       this.add(mesh);
     }
   }
-  
 
   update(timeStamp) {}
 }
