@@ -1,0 +1,6 @@
+{
+"DEMOCRAT"	: { "Name": "Democrat", "Color": "#3333FF" },
+"REPUBLICAN"	: { "Name": "Republican", "Color": "#E81B23" },
+"OTHER"	: { "Name": "Other", "Color": "#999999" },
+"LIBERTARIAN"	: { "Name": "Libertatian", "Color": "#999999" }
+}
