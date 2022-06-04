@@ -1,7 +1,7 @@
 import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 import {Font} from 'three/examples/jsm/loaders/FontLoader'
 import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry'
-import fontJson from "../../fonts/times_new_roman.json";
+import fontJson from "../../fonts/helvetiker_bold.typeface.json";
 import { Vector3 } from 'three';
 
 const font = new Font(fontJson);
