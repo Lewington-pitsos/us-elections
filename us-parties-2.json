@@ -1,0 +1,4 @@
+{
+    "DEMOCRAT"	: { "Name": "Democrat", "Color": "#3333FF" },
+    "REPUBLICAN"	: { "Name": "Republican", "Color": "#E81B23" }
+}

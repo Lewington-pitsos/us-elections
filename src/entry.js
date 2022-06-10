@@ -21,16 +21,25 @@ const controls = new OrbitControls(camera, renderer.domElement);
 scene.add(seedScene);
 
 // camera
-camera.position.set(60,40,100);
-controls.target.set(0, 40, 0);
-controls.enablePan = false;
-controls.maxDistance = 100;
+camera.position.set(0,0,100);
+controls.target.set(0, 0, 0);
+controls.screenSpacePanning = true;
+const angle = 1.6
+controls.keyPanSpeed = 35;
+controls.panSpeed = 5;
+controls.minPolarAngle = angle;
+controls.maxPolarAngle = angle; 
+
+controls.minAzimuthAngle = -0.8;
+controls.maxAzimuthAngle = 0.8;
+
+controls.maxDistance = 250;
 controls.minDistance = 20;
 controls.update();
 
 // renderer
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x7ec0ee, 1);
+renderer.setClearColor("#000000", 1);
 
 // render loop
 const onAnimationFrameHandler = (timeStamp) => {
