@@ -1,0 +1,14 @@
+{
+    "1976": {"Party": "Democrat", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Jimmy_Carter_cropped.png/450px-Jimmy_Carter_cropped.png"},
+    "1980": {"Party": "Republican", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Official_Portrait_of_President_Reagan_1981-cropped.jpg/456px-Official_Portrait_of_President_Reagan_1981-cropped.jpg"},
+    "1984": {"Party": "Republican", "Link": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Ronald_Reagan_1985_presidential_portrait_%28cropped%29.jpg"},
+    "1988": {"Party": "Republican", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/1988_Bush_%28cropped%29.jpg/450px-1988_Bush_%28cropped%29.jpg"},
+    "1992": {"Party": "Democrat", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/459px-Bill_Clinton.jpg"},
+    "1996": {"Party": "Democrat", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/459px-Bill_Clinton.jpg"},
+    "2000": {"Party": "Republican", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/GeorgeWBush.jpg/474px-GeorgeWBush.jpg"},
+    "2004": {"Party": "Republican", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/453px-George-W-Bush.jpeg"},
+    "2008": {"Party": "Democrat", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Obama_portrait_crop.jpg/446px-Obama_portrait_crop.jpg"},
+    "2012": {"Party": "Democrat", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/461px-President_Barack_Obama%2C_2012_portrait_crop.jpg"},
+    "2016": {"Party": "Republican", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Donald_Trump_official_portrait_%28cropped%29.jpg/435px-Donald_Trump_official_portrait_%28cropped%29.jpg"},
+    "2020": {"Party": "Democrat", "Link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Joe_Biden_presidential_portrait_%28cropped%29.jpg/450px-Joe_Biden_presidential_portrait_%28cropped%29.jpg"}
+}

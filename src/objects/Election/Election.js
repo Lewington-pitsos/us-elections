@@ -1,8 +1,10 @@
-import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { Group, BoxGeometry, MeshBasicMaterial, Mesh, MeshLambertMaterial, TextureLoader, PlaneGeometry } from 'three';
 import {Font} from 'three/examples/jsm/loaders/FontLoader'
 import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry'
 import fontJson from "../../fonts/helvetiker_bold.typeface.json";
+import Presidents from "../../presidents.json"
 
+var loader = new TextureLoader();
 const font = new Font(fontJson);
 
 function y_from_year(year) {
@@ -35,7 +37,6 @@ export class Election extends Group {
       height: 0.5
     });
     const text = new Mesh( textGeo, textMaterial);
-    console.log(cube.position.x)
     text.position.x = x - 0.4
     text.position.y = cube.position.y - 0.2
     text.position.z = z
@@ -45,6 +46,13 @@ export class Election extends Group {
   }
 }
 
+function getXPos(president) {
+  if (president.Party == "Democrat") {
+    return 100
+  }
+
+  return -100
+}
 
 export class Year extends Group {
   constructor(year) {    
@@ -55,15 +63,32 @@ export class Year extends Group {
 
     const textGeo = new TextGeometry(year.toString(), {
       font: font,
-      size: 4,
+      size: 2,
       height: 1
     });
 
+    const president = Presidents[year.toString()]
+
+
     const text = new Mesh( textGeo, material);
-    text.position.x = -7;
-    text.position.y = y_from_year(year) - 5;
+    text.position.x = getXPos(president) - 3.5;
+    text.position.y = y_from_year(year) - 2;
     text.position.z = -5;
     this.add(text);
+
+
+    const downsize = 45
+    const imageGeo = new PlaneGeometry(268 / downsize, 340 / downsize);
+    const imageMat = new MeshLambertMaterial({
+      map: loader.load(president.Link)
+    });
+    
+    const cube = new Mesh( imageGeo, imageMat );
+    cube.position.x = getXPos(president)
+    cube.position.y = y_from_year(year) + 6;
+    cube.position.z = -5;
+    this.add( cube );
+
 
   }
 }

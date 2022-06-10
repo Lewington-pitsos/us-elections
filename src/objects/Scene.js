@@ -1,4 +1,4 @@
-import { Group, Mesh, BufferGeometry, Vector3, BoxGeometry, MeshBasicMaterial } from 'three';
+import { Group, Mesh, BufferGeometry, Vector3, BoxGeometry, MeshBasicMaterial, AmbientLight } from 'three';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
 import {Font} from 'three/examples/jsm/loaders/FontLoader'
 import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry'
@@ -197,6 +197,15 @@ export default class SeedScene extends Group {
         lowertext.position.z = -6
         this.add(lowertext)
       }
+
+
+      var light = new AmbientLight(0xf0f0f0, 0.07)
+
+      // Specify the light's position
+      light.position.set(1, 1, 1000 );
+
+      // Add the light to the scene
+      this.add(light)
     }
     
 

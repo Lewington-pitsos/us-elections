@@ -7,7 +7,7 @@
  * 
  */
 
-import { WebGLRenderer, PerspectiveCamera, Scene } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Scene, MOUSE, Vector3 } from 'three';
 import SeedScene from './objects/Scene.js';
 import OrbitControls from 'three-orbitcontrols';
 
@@ -16,25 +16,31 @@ const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({antialias: true});
 const seedScene = new SeedScene();
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.mouseButtons.LEFT = MOUSE.PAN;
+controls.mouseButtons.MIDDLE = MOUSE.ZOOM;
+controls.mouseButtons.RIGHT = MOUSE.ROTATE;
 
 // scene
 scene.add(seedScene);
 
 // camera
-camera.position.set(0,0,100);
+camera.position.set(0,0,150);
 controls.target.set(0, 0, 0);
 controls.screenSpacePanning = true;
+controls.keys = {}
+controls.zoomSpeed = 1.8
 const angle = 1.6
-controls.keyPanSpeed = 35;
-controls.panSpeed = 5;
+controls.panSpeed = 4;
 controls.minPolarAngle = angle;
 controls.maxPolarAngle = angle; 
+controls.enableDamping = false;
 
 controls.minAzimuthAngle = -0.8;
 controls.maxAzimuthAngle = 0.8;
 
 controls.maxDistance = 250;
 controls.minDistance = 20;
+
 controls.update();
 
 // renderer
