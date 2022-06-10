@@ -62,7 +62,7 @@ export class Year extends Group {
     const text = new Mesh( textGeo, material);
     text.position.x = -7;
     text.position.y = y_from_year(year) - 5;
-    text.position.z = -6;
+    text.position.z = -5;
     this.add(text);
 
   }

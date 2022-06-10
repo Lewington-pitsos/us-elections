@@ -168,7 +168,7 @@ export default class SeedScene extends Group {
         const divider = new Mesh( geometry, material );
         divider.position.x = index;
         divider.position.y = backTickHeight / 2 - 8;
-        divider.position.z = -4
+        divider.position.z = -5
         this.add(divider)
 
 
@@ -179,9 +179,9 @@ export default class SeedScene extends Group {
         });
         const textMaterial = new MeshBasicMaterial( {color: "#555555"} );
         const text = new Mesh( textGeo, textMaterial);
-        text.position.x = index;
+        text.position.x = index - 2.5;
         text.position.y = backTickHeight;
-        text.position.z = -7
+        text.position.z = -6
         this.add(text)
 
 
@@ -194,7 +194,7 @@ export default class SeedScene extends Group {
         const lowertext = new Mesh( lowerTextGeo, lowerTextMaterial);
         lowertext.position.x = index - 2.5;
         lowertext.position.y = - 20
-        lowertext.position.z = -7
+        lowertext.position.z = -6
         this.add(lowertext)
       }
     }

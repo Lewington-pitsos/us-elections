@@ -3345,7 +3345,7 @@
         },
         "MARYLAND": {
             "parties": {
-                "DEMOCRAT": 7,
+                "DEMOCRAT": 1334493,
                 "REPUBLICAN": 1024703,
                 "OTHER": 34,
                 "LIBERTARIAN": 6094
@@ -4545,7 +4545,7 @@
         "ARIZONA": {
             "parties": {
                 "REPUBLICAN": 1252401,
-                "DEMOCRAT": 42,
+                "DEMOCRAT": 1161167,
                 "LIBERTARIAN": 106327,
                 "OTHER": 12
             },
@@ -4706,8 +4706,8 @@
         },
         "MARYLAND": {
             "parties": {
-                "DEMOCRAT": 78,
-                "REPUBLICAN": 259,
+                "DEMOCRAT": 1677928,
+                "REPUBLICAN": 943169,
                 "LIBERTARIAN": 79605,
                 "OTHER": 278
             },
