@@ -54,6 +54,7 @@ function getUSP(state) {
 
 class Seat {
   name;
+  elections = [];
   currentElection = null;
 
   constructor(name) {
@@ -61,10 +62,31 @@ class Seat {
   }
 
   newElection(year, winner, x, z, yoffset) {
-    const e = new Election(x, year, z, winner, getUSP(this.name), yoffset);
-    
+    const e = new Election(this, x, year, z, winner, getUSP(this.name), yoffset);
+
+    if (this.currentElection != null) {
+      const mesh = connectingLine(this.currentElection, e);
+      e.addLine(mesh);
+    }
+
+    this.elections.push(e);
+
     this.currentElection = e;
     return e;
+  }
+
+  highlightAll() {
+    for (let index = 0; index < this.elections.length; index++) {
+      const election = this.elections[index];
+      election.highlight();
+    }
+  }
+
+  unfocusAll() {
+    for (let index = 0; index < this.elections.length; index++) {
+      const election = this.elections[index];
+      election.unfocus();
+    }
   }
 }
 
@@ -198,7 +220,6 @@ export default class SeedScene extends Group {
         this.add(lowertext)
       }
 
-
       var light = new AmbientLight(0xf0f0f0, 0.07)
 
       // Specify the light's position
@@ -222,14 +243,8 @@ export default class SeedScene extends Group {
   }
 
   addElection(year, seat, nextWinner, xpos, zpos, yoffest) {
-    const previousElection = seat.currentElection;
     const nextElection = seat.newElection(year, nextWinner, xpos, zpos, yoffest);
     this.add(nextElection)
-
-    if (previousElection != null) {
-      const mesh = connectingLine(previousElection, nextElection);
-      this.add(mesh);
-    }
   }
 
   update(timeStamp) {}

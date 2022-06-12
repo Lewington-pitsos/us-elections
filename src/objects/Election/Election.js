@@ -14,9 +14,13 @@ function y_from_year(year) {
 export class Election extends Group {
   pos;
   winner;
+  cube;
+  line;
+  seat;
 
-  constructor(x, year, z, winner, stateCode, yoffset) {    
+  constructor(seat, x, year, z, winner, stateCode, yoffset) {    
     super();
+    this.seat = seat;
 
     this.name = 'election';
     this.winner = winner;
@@ -30,6 +34,7 @@ export class Election extends Group {
     cube.position.y = y_from_year(year) + yoffset;
     cube.position.z = z;
     this.add( cube );
+    this.cube = cube;
 
     const textGeo = new TextGeometry(stateCode, {
       font: font,
@@ -43,6 +48,35 @@ export class Election extends Group {
     this.add(text)
 
     this.pos = cube.position;
+  }
+
+  highlightSeat() {
+    this.seat.highlightAll();
+  } 
+
+  unfocusSeat() {
+    this.seat.unfocusAll();
+  }
+
+  highlight() {
+    this.cube.material.color.set("#00cc99");
+    if (this.line) {
+      this.line.material.color.set("#00cc99");
+      this.line.geometry.setGeometry(this.line.geometry, p => 0.2);
+    }
+  }
+
+  unfocus() {
+    this.cube.material.color.set(this.winner.Color);
+    if (this.line) {
+      this.line.material.color.set("#ffffff");
+      this.line.geometry.setGeometry(this.line.geometry, p => 0.05);
+    }
+  }
+
+  addLine(line) {
+    this.line = line;
+    this.add(line);
   }
 }
 
