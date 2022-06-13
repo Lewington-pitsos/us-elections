@@ -7,6 +7,7 @@ import Parties from '../us-parties.json'
 import ElectionData from '../us-elections.json'
 import USPS from '../usps.json'
 import fontJson from "../fonts/helvetiker_bold.typeface.json";
+import { TEXT_FRONT_COLOR, TEXT_SIDE_COLOR } from '../constants.js';
 const font = new Font(fontJson);
 
 function connectingLine(e1, e2) {
@@ -109,7 +110,7 @@ function quantize(val, candidates) {
   return currentCandidate
 }
   
-const wingspan = 250
+const wingspan = 150
 const PartyLocations = new Map([
   ["DEMOCRAT", wingspan],
   ["REPUBLICAN", -wingspan]
@@ -152,11 +153,9 @@ export default class SeedScene extends Group {
             const votes = results['parties'][party];
             const voteProp =  votes/totalVotes;
             
-            x = PartyLocations.get(party);
-            
-            xpos += x * voteProp
-            
             if (votes > maxVotes) {
+              x = PartyLocations.get(party);
+              xpos = (x * voteProp - x / 2) * 2
               winner = party;
               maxVotes = votes;
             }
@@ -185,7 +184,7 @@ export default class SeedScene extends Group {
     }
 
     const backTickHeight = 190
-    for (let index = -wingspan; index < wingspan; index += 25) {
+    for (let index = -wingspan; index <= wingspan; index += wingspan/10) {
       if (index != 0) {
 
         const geometry = new BoxGeometry( 0.01, backTickHeight, 0.3 );
@@ -197,7 +196,7 @@ export default class SeedScene extends Group {
         this.add(divider)
 
 
-        const textGeo = new TextGeometry((Math.abs(index) * 100 / 250).toString() + "%", {
+        const textGeo = new TextGeometry((50 + Math.abs(index) * 50 / wingspan).toString() + "%", {
           font: font,
           size: 2,
           height: 0.5
@@ -223,17 +222,43 @@ export default class SeedScene extends Group {
         this.add(lowertext)
       }
 
+      const titleTextGeo = new TextGeometry("Every US Presidential Election Outcome Since 1976", {
+        font: font,
+        size: 7,
+        height: 3
+      }); 
+      const titleText = new Mesh( titleTextGeo, [
+        new MeshBasicMaterial( { color: TEXT_FRONT_COLOR } ), 
+        new MeshBasicMaterial( { color: TEXT_SIDE_COLOR } )
+      ]);
+      titleText.position.y = 220;
+      titleText.position.x = -120;
+      this.add(titleText);
+
+      const subtitleTextGeo = new TextGeometry("Percentages given as the winning party's share of all votes for either party for that state", {
+        font: font,
+        size: 3,
+        height: 1
+      }); 
+      const subTitleText = new Mesh( subtitleTextGeo, [
+        new MeshBasicMaterial( { color: TEXT_FRONT_COLOR } ), 
+        new MeshBasicMaterial( { color: TEXT_SIDE_COLOR } )
+      ]);
+      subTitleText.position.y = 210;
+      subTitleText.position.x = -90;
+
+      this.add(subTitleText);
+
+
+
+
       var light = new AmbientLight(0xf0f0f0, 0.07)
-
-      // Specify the light's position
       light.position.set(1, 1, 1000 );
-
-      // Add the light to the scene
       this.add(light)
     }
     
 
-    const geometry = new BoxGeometry( 0.1, backTickHeight + 30, 3 );
+    const geometry = new BoxGeometry( 0.1, backTickHeight + 30, 1);
     const material = new MeshBasicMaterial();
     const divider = new Mesh( geometry, material );
     divider.position.y = backTickHeight / 2 - 8;

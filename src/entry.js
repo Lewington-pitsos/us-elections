@@ -26,19 +26,19 @@ controls.mouseButtons.RIGHT = MOUSE.ROTATE;
 scene.add(seedScene);
 
 // camera
-camera.position.set(0,0,150);
-controls.target.set(0, 0, 0);
+camera.position.set(0,160,150);
+controls.target.set(0, 160, 0);
 controls.screenSpacePanning = true;
 controls.keys = {}
 controls.zoomSpeed = 1.8
 const angle = 1.6
-controls.panSpeed = 4;
+controls.panSpeed = 2;
 controls.minPolarAngle = angle;
 controls.maxPolarAngle = angle; 
 controls.enableDamping = false;
 
-controls.minAzimuthAngle = -0.8;
-controls.maxAzimuthAngle = 0.8;
+controls.minAzimuthAngle = -0.75;
+controls.maxAzimuthAngle = 0.75;
 
 controls.maxDistance = 250;
 controls.minDistance = 20;

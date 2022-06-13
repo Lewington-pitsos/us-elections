@@ -3,6 +3,7 @@ import {Font} from 'three/examples/jsm/loaders/FontLoader'
 import {TextGeometry} from 'three/examples/jsm/geometries/TextGeometry'
 import fontJson from "../../fonts/helvetiker_bold.typeface.json";
 import Presidents from "../../presidents.json"
+import { TEXT_FRONT_COLOR, TEXT_SIDE_COLOR } from '../../constants';
 
 var loader = new TextureLoader();
 const font = new Font(fontJson);
@@ -93,21 +94,20 @@ export class Year extends Group {
     super();
     this.name = 'year';
 
-    const material = new MeshBasicMaterial( { color: "#ffffff" } );
-
     const textGeo = new TextGeometry(year.toString(), {
       font: font,
       size: 2,
       height: 1
     });
-
     const president = Presidents[year.toString()]
 
-
-    const text = new Mesh( textGeo, material);
+    const text = new Mesh( textGeo, [
+      new MeshBasicMaterial( { color: TEXT_FRONT_COLOR } ),
+      new MeshBasicMaterial( { color: TEXT_SIDE_COLOR } ),
+    ]);
     text.position.x = getXPos(president) - 3.5;
-    text.position.y = y_from_year(year) - 2;
-    text.position.z = -5;
+    text.position.y = y_from_year(year) - 0.5;
+    text.position.z = -3;
     this.add(text);
 
 
@@ -120,7 +120,7 @@ export class Year extends Group {
     const cube = new Mesh( imageGeo, imageMat );
     cube.position.x = getXPos(president)
     cube.position.y = y_from_year(year) + 6;
-    cube.position.z = -5;
+    cube.position.z = -3;
     this.add( cube );
 
 
