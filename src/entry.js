@@ -55,18 +55,33 @@ var raycaster = new Raycaster();
 
 
 function onPointerMove( event ) {
-
-	// calculate pointer position in normalized device coordinates
-	// (-1 to +1) for both components
-
 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
+  hoverState();
+  unHighlight();
 }
 
 
 let highlighted = [];
 let keep = []
+let selected = []
+
+function onClick() {
+  raycaster.setFromCamera(pointer, camera);
+  const intersects = raycaster.intersectObjects(scene.children);
+  for (let index = 0; index < intersects.length; index++) {
+    const element = intersects[index];
+    if (element.object.parent instanceof Election && element.object.geometry instanceof BoxGeometry) {
+      const selectedSeat = element.object.parent.seat;
+      if (!selected.includes(selectedSeat)) {
+        selected.push(selectedSeat);
+      } else {
+        selected = selected.filter(e => e !== selectedSeat);
+      }
+    }
+  }
+}
 
 function hoverState() {
   raycaster.setFromCamera(pointer, camera);
@@ -75,20 +90,22 @@ function hoverState() {
   for (let index = 0; index < intersects.length; index++) {
     const element = intersects[index];
     if (element.object.parent instanceof Election && element.object.geometry instanceof BoxGeometry) {
-      if (!highlighted.includes(element.object.parent)) {
-        element.object.parent.highlightSeat();
+      const selectedSeat = element.object.parent.seat;
+      if (!keep.includes(selectedSeat)) {
+        keep.push(selectedSeat);
+        if (!highlighted.includes(selectedSeat)) {
+          selectedSeat.highlightAll();
+        }
       }
-      keep.push(element.object.parent);
     }
   }
 }
 
-
 function unHighlight() {
   for (let index = 0; index < highlighted.length; index++) {
-    const election = highlighted[index];
-    if (!keep.includes(election)) {
-      election.unfocusSeat()
+    const seat = highlighted[index];
+    if (!keep.includes(seat) && !selected.includes(seat)) {
+      seat.unfocusAll()
     }
   }
   highlighted = keep; 
@@ -96,8 +113,6 @@ function unHighlight() {
 
 // render loop
 const onAnimationFrameHandler = (timeStamp) => {
-  hoverState();
-  unHighlight();
   renderer.render(scene, camera);
   seedScene.update && seedScene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
@@ -113,6 +128,7 @@ const windowResizeHanlder = () => {
 };
 windowResizeHanlder();
 window.addEventListener('resize', windowResizeHanlder);
+window.addEventListener('click', onClick);
 window.addEventListener( 'pointermove', onPointerMove );
 
 // dom

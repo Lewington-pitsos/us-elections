@@ -27,9 +27,12 @@ function connectingLine(e1, e2) {
   const geometry = new BufferGeometry().setFromPoints(points);
   
   const color = "#ffffff";
-  line.setGeometry(geometry, p => 0.05);
+  line.setGeometry(geometry);
   
-  const lineMaterial = new MeshLineMaterial({color: color});
+  const lineMaterial = new MeshLineMaterial({
+    color: color, 
+    lineWidth: 0.05
+  });
   
   return new Mesh(line, lineMaterial);
 }

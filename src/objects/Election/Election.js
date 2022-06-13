@@ -62,7 +62,7 @@ export class Election extends Group {
     this.cube.material.color.set("#00cc99");
     if (this.line) {
       this.line.material.color.set("#00cc99");
-      this.line.geometry.setGeometry(this.line.geometry, p => 0.2);
+      this.line.material.lineWidth = 0.25;
     }
   }
 
@@ -70,7 +70,7 @@ export class Election extends Group {
     this.cube.material.color.set(this.winner.Color);
     if (this.line) {
       this.line.material.color.set("#ffffff");
-      this.line.geometry.setGeometry(this.line.geometry, p => 0.05);
+      this.line.material.lineWidth = 0.05;
     }
   }
 
